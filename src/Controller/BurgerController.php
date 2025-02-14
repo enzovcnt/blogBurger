@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Burger;
+use App\Form\BurgerType;
 use Attributes\DefaultEntity;
 use Core\Attributes\Route;
 use Core\Controller\Controller;
@@ -36,5 +37,20 @@ class BurgerController extends Controller
             return $this->redirectToRoute('burgers');
         }
         return $this->render('burger/show', ["burger" => $burger]);
+    }
+
+    #[Route(uri:'/burger/new', routeName: 'newBurger')]
+    public function create():Response
+    {
+        $burgerForm = new BurgerType();
+        if($burgerForm->isSubmitted())
+        {
+            $burger = new Burger();
+            $burger->setTitle($burgerForm->getValue("title"));
+            $burger->setContent($burgerForm->getValue("content"));
+            $id = $this->getRepository()->save($burger);
+            return $this->redirectToRoute('burgers', ["id" => $id]);
+        }
+        return $this->render('burger/create', []);
     }
 }
