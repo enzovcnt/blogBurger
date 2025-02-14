@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BurgerRepository;
 use Attributes\TargetRepository;
+use Core\Attributes\Table;
 
 #[Table(name: 'burgers')]
 #[TargetRepository(repoName: BurgerRepository::class)]
