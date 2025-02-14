@@ -1,1 +1,1 @@
-<h2>coucou je suis l'accueil</h2>
+<h2>Documentation en cours de rédaction</h2>

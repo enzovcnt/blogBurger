@@ -53,4 +53,34 @@ class BurgerController extends Controller
         }
         return $this->render('burger/create', []);
     }
+
+    #[Route(uri:'/burger/update', routeName: 'editBurger')]
+    public function update():Response
+    {
+        $id = $this->getRequest()->get(["id"=>"number"]);
+
+        if(!$id)
+
+        {
+            return $this->redirectToRoute('burgers');
+        }
+
+        $burger = $this->getRepository()->find($id);
+
+        if(!$burger)
+
+        {
+            return $this->redirectToRoute('burgers');
+        }
+
+        $formBurger = new BurgerType();
+        if($formBurger->isSubmitted())
+        {
+            $burger->setTitle($formBurger->getValue("title"));
+            $burger->setContent($formBurger->getValue("content"));
+            $burger = $this->getRepository()->update($burger);
+            return $this->redirectToRoute('burger', ["id" => $burger->getId()]);
+        }
+        return $this->render('burger/update', ["burger" => $burger]);
+    }
 }
