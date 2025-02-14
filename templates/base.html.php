@@ -30,6 +30,9 @@ use Core\Session\Session;
                 <li class="nav-item">
                     <a class="nav-link" href="/burger/new">New Burger</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
 
 
 
