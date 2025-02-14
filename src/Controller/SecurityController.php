@@ -27,37 +27,28 @@ class SecurityController extends Controller
 
             $this->getRepository()->save($register);
 
-            return $this->redirectToRoute('burgers');
+            return $this->redirectToRoute('login');
         }
         return $this->render('user/signup', []);
     }
 
+    #[Route(uri: "/login", routeName: "login", methods: ["POST"])]
     public function login():Response
     {
-        $username = null;
-        $password = null;
-        if(!empty($_POST['username']) && !empty($_POST['password']))
-        {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+        $loginForm = new UserType();
+        if($loginForm->isSubmitted()) {
+
+
+
+            $login = new User();
+            $login->setUsername($loginForm->getValue('username'));
+            $login->setPassword($loginForm->getValue('password'));
+
+            $this->getRepository()->findByUsername($login);
+
+            return $this->redirectToRoute('burgers');
         }
-        if($username & $password)
-        {
-            $registeredUser = $this->getRepository()->findByUsername($username);
-            if(!$registeredUser){return $this->redirect(["type"=>"security","action"=>"login"]);}
-
-
-            $success = $registeredUser->logIn($password);
-
-            if(!$success){return $this->redirect(["type"=>"security","action"=>"login"]);}
-            else{return $this->redirect(["type"=>"burger", "action"=>"index"]);}
-
-
-        }
-
-
-
-        return $this->render('user/signin',[]);
+        return $this->render('user/signin', []);
     }
 
 
