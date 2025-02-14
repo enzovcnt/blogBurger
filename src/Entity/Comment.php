@@ -7,7 +7,7 @@ use Attributes\TargetRepository;
 use Core\Attributes\Table;
 
 
-#[Table(name: "comments")]
+#[Table(name: 'comments')]
 #[TargetRepository(repoName: CommentRepository::class)]
 class Comment
 {
