@@ -83,4 +83,21 @@ class BurgerController extends Controller
         }
         return $this->render('burger/update', ["burger" => $burger]);
     }
+
+    #[Route(uri:'/burger/delete', routeName: 'deleteBurger')]
+    public function delete():Response
+    {
+        $id = $this->getRequest()->get(["id"=>"number"]);
+        if(!$id)
+        {
+            return $this->redirectToRoute('burgers');
+        }
+        $burger = $this->getRepository()->find($id);
+        if(!$burger)
+        {
+            return $this->redirectToRoute('burgers');
+        }
+        $this->getRepository()->delete($burger);
+        return $this->redirectToRoute('burgers');
+    }
 }
