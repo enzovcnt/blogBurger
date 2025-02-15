@@ -36,7 +36,16 @@ use Core\Session\Session;
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Sign In</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Sign Out</a>
+                </li>
+                <span><strong><?php
+                        if(Session::get("user")) :  ?>
 
+                            <?= Session::get("user")["authenticator"] ?>
+
+                        <?php endif; ?>
+                    </strong></span>
 
 
 

@@ -56,12 +56,15 @@ class SecurityController extends Controller
         return $this->render('user/signin', []);
     }
 
-
+    #[Route(uri: "/logout", routeName: "logout", methods: ["GET"])]
     public function logOut():Response
     {
         $user = $this->getUser();
-        if($user){$user->logOut();}
+        if($user)
+        {
+            $user->logOut();
+        }
 
-        return $this->redirect(["type"=>"security", "action"=>"login"]);
+        return $this->redirectToRoute('login');
     }
 }
