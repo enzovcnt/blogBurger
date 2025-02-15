@@ -35,18 +35,23 @@ class SecurityController extends Controller
     #[Route(uri: "/login", routeName: "login", methods: ["POST"])]
     public function login():Response
     {
+
+
         $loginForm = new UserType();
-        if($loginForm->isSubmitted()) {
+        if($loginForm->isSubmitted())
+        {
+            $username = $this -> getRepository() -> findByUsername($loginForm->getValue('username'));
+            if(!$username)
+            {
+                return $this->redirectToRoute('login');
+            }
 
+            $success = $username->login($loginForm->getValue('password'));
+            if($success)
+            {
+                return $this->redirectToRoute('burgers');
+            }
 
-
-            $login = new User();
-            $login->setUsername($loginForm->getValue('username'));
-            $login->setPassword($loginForm->getValue('password'));
-
-            $this->getRepository()->findByUsername($login);
-
-            return $this->redirectToRoute('burgers');
         }
         return $this->render('user/signin', []);
     }
