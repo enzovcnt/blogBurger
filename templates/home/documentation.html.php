@@ -24,4 +24,7 @@
         colonnes. Les requêtes générales se trouve dans le Core/Repository qui lui est utilisé
         par l'App/Controller principalement
     </p>
+    <p>
+        Suite > expliquer ce qu'il se passe dans le core à lors de l'utilisation des différentes méthodes
+    </p>
 </div>
